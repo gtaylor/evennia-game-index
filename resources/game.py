@@ -1,5 +1,7 @@
 from flask_restful import Resource, reqparse
 
+import models
+
 
 post_parser = reqparse.RequestParser()
 post_parser.add_argument(
@@ -16,7 +18,11 @@ post_parser.add_argument(
     help='The game\'s website',
 )
 post_parser.add_argument(
-    'telnet_hostname', dest='server_hostname',
+    'evennia_version', dest='evennia_version', location='form', required=True,
+    help='The version of Evennia the game is running on',
+)
+post_parser.add_argument(
+    'telnet_hostname', dest='telnet_hostname',
     location='form', required=True,
     help='The hostname where users can telnet into the game',
 )
@@ -40,5 +46,6 @@ class GameCheckIn(Resource):
 
     def post(self):
         args = post_parser.parse_args()
-        print "ARGS", args
-        return {'hello': 'world'}
+        gl = models.GameListing(id=args.game_name, **args)
+        gl.put()
+        return 'OK', 200
