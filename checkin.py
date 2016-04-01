@@ -4,7 +4,7 @@ import urllib2
 
 url = 'http://127.0.0.1:8080/api/v1/game/check_in'
 values = {
-    'game_name': 'Test Güme',
+    'game_name': 'Test Güame',
     'game_status': 'pre-alpha',
     'game_website': 'http://blah.com',
     'evennia_version': '0.5.0',
