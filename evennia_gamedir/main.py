@@ -3,8 +3,7 @@ import datetime
 from flask import Flask
 from flask_restful import Api
 
-import models
-import resources
+from evennia_gamedir import resources, models
 
 app = Flask(__name__)
 api = Api(app)
@@ -12,6 +11,8 @@ api = Api(app)
 
 @app.route('/')
 def game_list():
+    # TODO: Index on checkin_time?
+    # TODO: Sort by player count?
     cutoff_td = datetime.timedelta(hours=24)
     games = models.GameListing.query().filter(
         models.GameListing.checkin_time > datetime.datetime.now() - cutoff_td)

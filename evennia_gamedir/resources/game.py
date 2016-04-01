@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 
-import models
+from evennia_gamedir import models
 
 
 post_parser = reqparse.RequestParser()
