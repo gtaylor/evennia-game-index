@@ -1,6 +1,6 @@
 import datetime
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_restful import Api
 
 from evennia_gamedir import resources, models
@@ -20,7 +20,7 @@ def game_list():
     for game in games:
         buf += '%s<br>' % game.game_name
     buf += '</body></html>'
-    return buf
+    return render_template('index.html', games=games)
 
 api.add_resource(resources.game.GameCheckIn, '/api/v1/game/check_in')
 
