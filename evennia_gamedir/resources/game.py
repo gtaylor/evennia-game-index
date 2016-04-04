@@ -46,6 +46,12 @@ class GameCheckIn(Resource):
 
     def post(self):
         args = post_parser.parse_args()
-        gl = models.GameListing(id=args.game_name, **args)
+        # If it exists, we'll end up with the existing list. If not,
+        # it gets created.
+        gl = models.GameListing.get_or_insert(args.game_name, **args)
+        # Regardless of what we do, time to update it.
+        for key, val in args.items():
+            setattr(gl, key, val)
+        # Bombs away!
         gl.put()
         return 'OK', 200
