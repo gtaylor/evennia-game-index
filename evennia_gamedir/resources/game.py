@@ -18,6 +18,10 @@ post_parser.add_argument(
     help='The game\'s website',
 )
 post_parser.add_argument(
+    'listing_contact', dest='listing_contact', location='form', required=True,
+    help='An email address for us to reach out to with listing queries.',
+)
+post_parser.add_argument(
     'evennia_version', dest='evennia_version', location='form', required=True,
     help='The version of Evennia the game is running on',
 )
