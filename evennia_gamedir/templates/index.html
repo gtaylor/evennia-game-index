@@ -66,7 +66,7 @@
             <th>Game Name</th>
             <th>Status</th>
             <th># Connected</th>
-            <th>Address</th>
+            <th>Play</th>
           </tr>
           {% for game in games %}
           <tr>
@@ -82,9 +82,11 @@
             <td>{{ game.game_status }}</td>
             <td>{{ game.connected_player_count }}</td>
             <td>
-              <a href="telnet://{{ game.telnet_hostname }}:{{ game.telnet_port }}">
-                {{ game.telnet_hostname }}:{{ game.telnet_port }}
-              </a>
+              {%- if game.telnet_hostname and game.telnet_port -%}
+                <a href="telnet://{{ game.telnet_hostname }}:{{ game.telnet_port }}">Telnet</a>
+              {%- endif -%}
+              {% if game.telnet_hostname and game.telnet_port and game.web_client_url %} or {% endif %}
+              {%- if game.web_client_url -%}<a href="{{ game.web_client_url }}">Web</a>{%- endif -%}
             </td>
           </tr>
           {% endfor %}
