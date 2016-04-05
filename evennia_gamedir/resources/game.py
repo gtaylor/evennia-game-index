@@ -17,9 +17,8 @@ post_parser.add_argument(
 post_parser.add_argument(
     'listing_contact', dest='listing_contact', location='form', required=True,
 )
-post_parser.add_argument(
-    'evennia_version', dest='evennia_version', location='form', required=True,
-)
+
+
 post_parser.add_argument(
     'telnet_hostname', dest='telnet_hostname',
     location='form', required=False,
@@ -32,6 +31,7 @@ post_parser.add_argument(
     'web_client_url', dest='web_client_url',
     location='form', required=False,
 )
+
 post_parser.add_argument(
     'connected_player_count', dest='connected_player_count', type=int,
     location='form', required=False,
@@ -39,6 +39,19 @@ post_parser.add_argument(
 post_parser.add_argument(
     'total_player_count', dest='total_player_count', type=int,
     location='form', required=False,
+)
+
+post_parser.add_argument(
+    'evennia_version', dest='evennia_version', location='form', required=True,
+)
+post_parser.add_argument(
+    'python_version', dest='python_version', location='form', required=False,
+)
+post_parser.add_argument(
+    'django_version', dest='django_version', location='form', required=False,
+)
+post_parser.add_argument(
+    'server_platform', dest='server_platform', location='form', required=False,
 )
 
 
