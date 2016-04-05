@@ -11,16 +11,16 @@ api = Api(app)
 
 @app.route('/')
 def game_list():
-    # TODO: Index on checkin_time?
-    # TODO: Sort by player count?
-    cutoff_td = datetime.timedelta(hours=24)
-    games = models.GameListing.query().filter(
-        models.GameListing.checkin_time > datetime.datetime.now() - cutoff_td)
-    buf = '<html><head><title>Evennia Game Directory</title></head><body>'
-    for game in games:
-        buf += '%s<br>' % game.game_name
-    buf += '</body></html>'
-    return render_template('index.html', games=games)
+    cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=24)
+    games = models.GameListing.query()
+    # Getting around a weird Google Cloud Datastore limitation crappily
+    # until I can figure out a better way.
+    filtered_games = [g for g in games if g.checkin_time > cutoff_time]
+    # Saves us from having to create an index, which is apparently slightly
+    # more expensive (monetarily).
+    sorted_games = sorted(filtered_games, key=lambda x: (
+        x.connected_player_count * -1, x.game_name))
+    return render_template('index.html', games=sorted_games)
 
 api.add_resource(resources.game.GameCheckIn, '/api/v1/game/check_in')
 
