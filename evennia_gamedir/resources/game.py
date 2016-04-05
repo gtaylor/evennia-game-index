@@ -29,7 +29,7 @@ post_parser.add_argument(
     required=False,
 )
 post_parser.add_argument(
-    'web_portal_url', dest='web_portal_url',
+    'web_client_url', dest='web_client_url',
     location='form', required=False,
 )
 post_parser.add_argument(
@@ -50,10 +50,10 @@ class GameCheckIn(Resource):
         # Let it be known that I am really unhappy that flask-restful doesn't
         # seem to do multi-field validation. If I can't figure something better
         # out, may be time to dust off WTForms.
-        if not args.web_portal_url and \
+        if not args.web_client_url and \
                 not (args.telnet_hostname and args.telnet_port):
             abort(400, message="You must specify at least one of "
-                               "web_portal_url or telnet_hostname+telnet_port.")
+                               "web_client_url or telnet_hostname+telnet_port.")
 
         # If it exists, we'll end up with the existing list. If not,
         # it gets created.

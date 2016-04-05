@@ -9,7 +9,7 @@ class GameListing(ndb.Model):
     evennia_version = ndb.StringProperty(required=True)
     telnet_hostname = ndb.StringProperty()
     telnet_port = ndb.IntegerProperty()
-    web_portal_url = ndb.StringProperty()
+    web_client_url = ndb.StringProperty()
     connected_player_count = ndb.IntegerProperty()
     total_player_count = ndb.IntegerProperty()
     created_time = ndb.DateTimeProperty(auto_now_add=True)

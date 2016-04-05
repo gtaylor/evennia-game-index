@@ -11,7 +11,7 @@ values = {
     'evennia_version': '0.5.0',
     'telnet_hostname': 'blah.com',
     'telnet_port': '1234',
-    'web_portal_url': 'http://portal.blah.com',
+    'web_client_url': 'http://webclient.blah.com',
     'connected_player_count': 10,
     'total_player_count': 123,
 }
