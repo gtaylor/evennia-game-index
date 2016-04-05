@@ -16,6 +16,10 @@ values = {
 }
 data = urllib.urlencode(values)
 req = urllib2.Request(url, data)
-response = urllib2.urlopen(req)
-result = response.read()
-print result
+try:
+    response = urllib2.urlopen(req)
+except urllib2.HTTPError as exc:
+    print exc.read()
+else:
+    result = response.read()
+    print result
