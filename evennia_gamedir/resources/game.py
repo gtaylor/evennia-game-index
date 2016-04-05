@@ -1,4 +1,4 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, abort
 
 from evennia_gamedir import models
 
@@ -22,10 +22,15 @@ post_parser.add_argument(
 )
 post_parser.add_argument(
     'telnet_hostname', dest='telnet_hostname',
-    location='form', required=True,
+    location='form', required=False,
 )
 post_parser.add_argument(
-    'telnet_port', dest='telnet_port', type=int, location='form', required=True,
+    'telnet_port', dest='telnet_port', type=int, location='form',
+    required=False,
+)
+post_parser.add_argument(
+    'web_portal_url', dest='web_portal_url',
+    location='form', required=False,
 )
 post_parser.add_argument(
     'connected_player_count', dest='connected_player_count', type=int,
@@ -41,6 +46,15 @@ class GameCheckIn(Resource):
 
     def post(self):
         args = post_parser.parse_args()
+
+        # Let it be known that I am really unhappy that flask-restful doesn't
+        # seem to do multi-field validation. If I can't figure something better
+        # out, may be time to dust off WTForms.
+        if not args.web_portal_url and \
+                not (args.telnet_hostname and args.telnet_port):
+            abort(400, message="You must specify at least one of "
+                               "web_portal_url or telnet_hostname+telnet_port.")
+
         # If it exists, we'll end up with the existing list. If not,
         # it gets created.
         gl = models.GameListing.get_or_insert(args.game_name, **args)
