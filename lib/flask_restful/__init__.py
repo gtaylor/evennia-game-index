@@ -392,7 +392,7 @@ class Api(object):
 
         Examples::
 
-            api.add_resource(GameCheckIn, '/', '/hello')
+            api.add_resource(GameListingCheckIn, '/', '/hello')
             api.add_resource(Foo, '/foo', endpoint="foo")
             api.add_resource(FooSpecial, '/special/foo', endpoint="foo")
 
