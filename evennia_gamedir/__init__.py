@@ -8,4 +8,5 @@ app = Flask(__name__)
 # for large Flask apps.
 # http://flask.pocoo.org/docs/0.10/patterns/packages/#simple-packages
 from evennia_gamedir import views  # noqa
-from evennia_gamedir import api  # noqa
+from evennia_gamedir import api_resources  # noqa
+from evennia_gamedir import errorhandlers  # noqa
