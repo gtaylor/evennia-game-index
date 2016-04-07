@@ -1,4 +1,4 @@
 cron:
 - description: record metrics that require iterating through all games
   url: /_cron/metrics/frequent-all-game-iter-metrics
-  schedule: every 1 minutes
+  schedule: every 15 minutes
