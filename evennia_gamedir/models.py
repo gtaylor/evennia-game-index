@@ -1,3 +1,5 @@
+import datetime
+
 from google.appengine.ext import ndb
 
 
@@ -25,3 +27,15 @@ class GameListing(ndb.Model):
 
     created_time = ndb.DateTimeProperty(auto_now_add=True)
     checkin_time = ndb.DateTimeProperty(auto_now=True)
+
+    @classmethod
+    def get_all_fresh_games_list(cls):
+        cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=24)
+        games = cls.query()
+        # Getting around a weird Google Cloud Datastore limitation crappily
+        # until I can figure out a better way.
+        filtered_games = [g for g in games if g.checkin_time > cutoff_time]
+        # Saves us from having to create an index, which is apparently slightly
+        # more expensive (monetarily).
+        return sorted(filtered_games, key=lambda x: (
+            x.connected_player_count * -1, x.game_name))

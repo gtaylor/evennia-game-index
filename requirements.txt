@@ -1,0 +1,6 @@
+Flask
+Jinja2
+flask_restful
+google-api-python-client
+slugify
+gcloud

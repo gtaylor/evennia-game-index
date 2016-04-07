@@ -1,6 +1,7 @@
 from flask import Flask
 
 
+GCP_PROJECT_ID = 'evennia-game-directory'
 app = Flask(__name__)
 
 
