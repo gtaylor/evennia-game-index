@@ -30,12 +30,15 @@ class GameListing(ndb.Model):
 
     @classmethod
     def get_all_fresh_games_list(cls):
-        cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=2)
         games = cls.query()
         # Getting around a weird Google Cloud Datastore limitation crappily
         # until I can figure out a better way.
-        filtered_games = [g for g in games if g.checkin_time > cutoff_time]
+        filtered_games = [g for g in games if g.is_fresh()]
         # Saves us from having to create an index, which is apparently slightly
         # more expensive (monetarily).
         return sorted(filtered_games, key=lambda x: (
             x.connected_player_count * -1, x.game_name))
+
+    def is_fresh(self):
+        cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=2)
+        return self.checkin_time > cutoff_time

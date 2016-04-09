@@ -18,6 +18,5 @@ def setup_all_the_things():
     This call does all setup work needed to configure the App Engine
     environment for normal operation.
     """
-
     _setup_metrics()
     return "OK"

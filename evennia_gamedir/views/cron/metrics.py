@@ -1,26 +1,33 @@
+from collections import Counter
+
 from evennia_gamedir import models, app
-from evennia_gamedir.metrics.metric_defines import EvenniaTotalConnectedPlayers, \
-    EvenniaTotalRegisteredPlayers
+from evennia_gamedir.metrics.metric_defines import EvenniaPlayerConnected, \
+    EvenniaPlayersAll, EDGGameListingsAll, EDGGameListingsFresh
 
 
 @app.route('/_cron/metrics/frequent-all-game-iter-metrics')
-def report_evennia_total_connected_players():
+def report_all_game_iter_metrics():
     """
     This is a rudimentary endpoint that App Engine cron hits to trigger
     the sending of metrics that require iterating through the entire list
     of fresh games.
     """
-    games = models.GameListing.get_all_fresh_games_list()
+    games = models.GameListing.query()
 
-    connected_player_count = 0
-    total_player_count = 0
+    counters = Counter()
     for game in games:
         if game.connected_player_count:
-            connected_player_count += game.connected_player_count
+            counters['connected_player_count'] += game.connected_player_count
         if game.total_player_count:
-            total_player_count += game.total_player_count
+            counters['total_player_count'] += game.total_player_count
 
-    EvenniaTotalConnectedPlayers.write_gauge(connected_player_count)
-    EvenniaTotalRegisteredPlayers.write_gauge(total_player_count)
+        if game.is_fresh():
+            counters['fresh_game_listings'] += 1
+        counters['all_game_listings'] += 1
+
+    EvenniaPlayerConnected.write_gauge(counters['connected_player_count'])
+    EvenniaPlayersAll.write_gauge(counters['total_player_count'])
+    EDGGameListingsAll.write_gauge(counters['all_game_listings'])
+    EDGGameListingsFresh.write_gauge(counters['fresh_game_listings'])
 
     return "OK"
