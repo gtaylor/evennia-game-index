@@ -16,14 +16,15 @@ def report_all_game_iter_metrics():
 
     counters = Counter()
     for game in games:
+        counters['all_game_listings'] += 1
+        if not game.is_fresh():
+            continue
+        counters['fresh_game_listings'] += 1
+
         if game.connected_player_count:
             counters['connected_player_count'] += game.connected_player_count
         if game.total_player_count:
             counters['total_player_count'] += game.total_player_count
-
-        if game.is_fresh():
-            counters['fresh_game_listings'] += 1
-        counters['all_game_listings'] += 1
 
     EvenniaPlayerConnected.write_gauge(counters['connected_player_count'])
     EvenniaPlayersAll.write_gauge(counters['total_player_count'])
