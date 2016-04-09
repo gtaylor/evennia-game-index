@@ -38,8 +38,8 @@ class BaseMetric(object):
     metric_name = None
     display_name = None
     description = None
-    extra_labels = None
 
+    # Included in all metrics.
     _standard_label_definitions = [
         {
             "key": "environment",
@@ -47,6 +47,8 @@ class BaseMetric(object):
             "description": "One of 'production' or 'devel'"
         },
     ]
+    # Override and add any extras.
+    extra_labels = []
 
     @classmethod
     def _value_type_to_typed_value(cls):
@@ -61,6 +63,9 @@ class BaseMetric(object):
 
     @classmethod
     def _get_standard_label_values(cls):
+        """
+        These get automatically reported for any metric we send.
+        """
         return {
             "environment": 'prod' if app.config['IS_PRODUCTION'] else 'dev'
         }
@@ -76,11 +81,7 @@ class BaseMetric(object):
 
     @classmethod
     def create_metric(cls):
-        # We have a standard set of labels that we apply to all metrics.
-        labels = cls._standard_label_definitions
-        if cls.extra_labels:
-            labels += cls.extra_labels
-
+        labels = cls._standard_label_definitions + cls.extra_labels
         md_name, md_type, project_resource = cls._get_metric_vars()
         metrics_descriptor = {
             "name": md_name,
@@ -142,7 +143,17 @@ class GaugeMetric(BaseMetric):
     metric_kind = 'GAUGE'
 
     @classmethod
+    def _validate_labels(cls, labels):
+        labels = labels or []
+        passed_label_keys = set([l['key'] for l in labels])
+        defined_label_keys = set([l['key'] for l in cls.extra_labels])
+        diff = defined_label_keys - passed_label_keys
+        if diff:
+            raise ValueError("Missing label value(s): %s" % diff)
+
+    @classmethod
     def write_gauge(cls, value, labels=None):
+        cls._validate_labels(labels)
         now = get_now_rfc3339()
         interval = (now, now)
         cls._write_value(value, interval, labels=labels)

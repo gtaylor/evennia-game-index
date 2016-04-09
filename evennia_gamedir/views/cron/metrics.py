@@ -2,7 +2,8 @@ from collections import Counter
 
 from evennia_gamedir import models, app
 from evennia_gamedir.metrics.metric_defines import EvenniaPlayerConnected, \
-    EvenniaPlayersAll, EDGGameListingsAll, EDGGameListingsFresh
+    EvenniaPlayersAll, EDGGameListingsAll, EDGGameListingsFresh, GamePlayersAll, \
+    GamePlayersConnected
 
 
 @app.route('/_cron/metrics/frequent-all-game-iter-metrics')
@@ -16,6 +17,7 @@ def report_all_game_iter_metrics():
 
     counters = Counter()
     for game in games:
+        game_labels = {'game_key_name': game.key.id()}
         counters['all_game_listings'] += 1
         if not game.is_fresh():
             continue
@@ -23,8 +25,10 @@ def report_all_game_iter_metrics():
 
         if game.connected_player_count:
             counters['connected_player_count'] += game.connected_player_count
+            GamePlayersConnected.write_gauge(game.total_player_count, labels=game_labels)
         if game.total_player_count:
             counters['total_player_count'] += game.total_player_count
+            GamePlayersAll.write_gauge(game.total_player_count, labels=game_labels)
 
     EvenniaPlayerConnected.write_gauge(counters['connected_player_count'])
     EvenniaPlayersAll.write_gauge(counters['total_player_count'])

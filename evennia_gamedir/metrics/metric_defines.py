@@ -32,3 +32,32 @@ class EDGGameListingsFresh(GaugeMetric):
     description = "Count of all game listings that have been seen recently."
     metric_value_type = 'INT64'
 
+
+class GamePlayersAll(GaugeMetric):
+    metric_name = "game.players.all"
+    display_name = "Per-Game Registered Players"
+    description = "Total number of registered players on specific games."
+    metric_value_type = 'INT64'
+
+    extra_labels = [
+        {
+            "key": "game_key_name",
+            "valueType": "STRING",
+            "description": "The game's Datastore key name."
+        },
+    ]
+
+
+class GamePlayersConnected(GaugeMetric):
+    metric_name = "game.players.connected"
+    display_name = "Per-Game Connected Players"
+    description = "Total number of connected players on specific games."
+    metric_value_type = 'INT64'
+
+    extra_labels = [
+        {
+            "key": "game_key_name",
+            "valueType": "STRING",
+            "description": "The game's Datastore key name."
+        },
+    ]
