@@ -25,7 +25,7 @@ def report_all_game_iter_metrics():
 
         if game.connected_player_count:
             counters['connected_player_count'] += game.connected_player_count
-            GamePlayersConnected.write_gauge(game.total_player_count, labels=game_labels)
+            GamePlayersConnected.write_gauge(game.connected_player_count, labels=game_labels)
         if game.total_player_count:
             counters['total_player_count'] += game.total_player_count
             GamePlayersAll.write_gauge(game.total_player_count, labels=game_labels)
