@@ -30,7 +30,7 @@ class GameListing(ndb.Model):
 
     @classmethod
     def get_all_fresh_games_list(cls):
-        cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=24)
+        cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=2)
         games = cls.query()
         # Getting around a weird Google Cloud Datastore limitation crappily
         # until I can figure out a better way.
