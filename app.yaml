@@ -23,11 +23,11 @@ handlers:
 
 # Cron endpoints should be locked down.
 - url: /_cron(.*)
-  script: evennia_gamedir.main.run_app
+  script: evennia_gamedir.app
   login: admin
 
-- url: .*  # This regex directs all routes to main.app
-  script: evennia_gamedir.main.run_app
+- url: .*
+  script: evennia_gamedir.app
 
 # Third party libraries that are included in the App Engine SDK must be listed
 # here if you want to use them.  See

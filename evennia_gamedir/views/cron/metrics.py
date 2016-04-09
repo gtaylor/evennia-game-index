@@ -1,10 +1,5 @@
-from evennia_gamedir import models
-from evennia_gamedir.main import app
-from evennia_gamedir.metrics.total_evennia_connected_players import \
-    create_total_evennia_connected_players_metric, write_total_evennia_connected_players_metric
-from evennia_gamedir.metrics.total_evennia_registered_players import \
-    create_total_evennia_registered_players_metric, \
-    write_total_evennia_registered_players_metric
+from evennia_gamedir import models, app
+from evennia_gamedir.metrics.common import write_gauge_metric
 
 
 @app.route('/_cron/metrics/frequent-all-game-iter-metrics')
@@ -24,9 +19,9 @@ def report_evennia_total_connected_players():
         if game.total_player_count:
             total_player_count += game.total_player_count
 
-    create_total_evennia_connected_players_metric()
-    create_total_evennia_registered_players_metric()
-    write_total_evennia_connected_players_metric(connected_player_count)
-    write_total_evennia_registered_players_metric(total_player_count)
+    write_gauge_metric(
+        "evennia/total-connected-players", connected_player_count)
+    write_gauge_metric(
+        "evennia/total-registered-players", total_player_count)
 
     return "OK"

@@ -1,8 +1,8 @@
 from flask import Flask
+from evennia_gamedir.config import populate_flask_config
 
-
-GCP_PROJECT_ID = 'evennia-game-directory'
 app = Flask(__name__)
+populate_flask_config(app)
 
 
 # This makes me queasy just looking at it, but it's considered the way to go

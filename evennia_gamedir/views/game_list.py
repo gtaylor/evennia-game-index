@@ -1,7 +1,6 @@
 from flask import render_template
 
-from evennia_gamedir import models
-from evennia_gamedir.main import app
+from evennia_gamedir import models, app
 
 
 @app.route('/')

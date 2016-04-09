@@ -1,7 +1,7 @@
 from flask import jsonify
 
+from evennia_gamedir import app
 from evennia_gamedir.exceptions import NotFoundError
-from evennia_gamedir.main import app
 
 
 @app.errorhandler(NotFoundError)
