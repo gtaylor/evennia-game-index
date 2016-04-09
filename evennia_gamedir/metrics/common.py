@@ -144,8 +144,8 @@ class GaugeMetric(BaseMetric):
 
     @classmethod
     def _validate_labels(cls, labels):
-        labels = labels or []
-        passed_label_keys = set([l['key'] for l in labels])
+        labels = labels or {}
+        passed_label_keys = set(labels.keys())
         defined_label_keys = set([l['key'] for l in cls.extra_labels])
         diff = defined_label_keys - passed_label_keys
         if diff:
