@@ -1,5 +1,6 @@
 from evennia_gamedir import models, app
-from evennia_gamedir.metrics.common import write_gauge_metric
+from evennia_gamedir.metrics.metric_defines import EvenniaTotalConnectedPlayers, \
+    EvenniaTotalRegisteredPlayers
 
 
 @app.route('/_cron/metrics/frequent-all-game-iter-metrics')
@@ -19,9 +20,7 @@ def report_evennia_total_connected_players():
         if game.total_player_count:
             total_player_count += game.total_player_count
 
-    write_gauge_metric(
-        "evennia/total-connected-players", connected_player_count)
-    write_gauge_metric(
-        "evennia/total-registered-players", total_player_count)
+    EvenniaTotalConnectedPlayers.write_gauge(connected_player_count)
+    EvenniaTotalRegisteredPlayers.write_gauge(total_player_count)
 
     return "OK"

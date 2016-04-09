@@ -1,15 +1,15 @@
 from evennia_gamedir import app
-from evennia_gamedir.metrics.common import create_gauge_metric
-from evennia_gamedir.metrics.metric_defines import METRIC_DEFINES
+from evennia_gamedir.metrics.common import BaseMetric
 
 
 def _setup_metrics():
-    for metric_name, values in METRIC_DEFINES.items():
-        create_gauge_metric(
-            gauge_name=metric_name,
-            display_name=values['display_name'],
-            description=values['description'],
-        )
+    """
+    Makes sure all of the metrics are defined.
+    """
+    metric_types = BaseMetric.__subclasses__()
+    for metric_type in metric_types:
+        for metric in metric_type.__subclasses__():
+            metric.create_metric()
 
 
 @app.route('/_system/setup/all')
