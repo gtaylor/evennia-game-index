@@ -20,3 +20,12 @@ def markdown_str(value):
         tags=ALLOWED_TAGS,
     )
     return retval
+
+
+def game_short_description(value, name):
+    max_len = 255
+    if len(value) > max_len:
+        raise ValueError(
+            "Your {} can not exceed {} characters.".format(
+                name, max_len))
+    return value

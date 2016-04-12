@@ -39,8 +39,8 @@
   <table class="table">
     <tr>
       <th>Game Name</th>
-      <th>Status</th>
-      <th># Connected</th>
+      <th>Blurb</th>
+      <th>Conn</th>
       <th>Play</th>
     </tr>
     {% for game in games %}
@@ -49,12 +49,24 @@
       <td>
         <a href="{{ url_for('game-detail', game_slug=game.key.id()) }}">
           {{ game.game_name }}
+          {% if game.game_status != 'launched' %}
+          <span class="unlaunched-game-state">{{ game.game_status }}</span>
+          {% endif %}
         </a>
       </td>
       {% else %}
       <td>{{ game.game_name }}</td>
       {% endif %}
-      <td>{{ game.game_status }}</td>
+      <td>
+        {% if game.short_description %}
+        <span data-toggle="tooltip" data-placement="top"
+              title="{{ game.short_description }}">
+          {{ game.short_description|truncate(60) }}
+        </span>
+        {% else %}
+          <em>None</em>
+        {% endif %}
+      </td>
       <td>{{ game.connected_player_count }}</td>
       <td>
         {%- if game.telnet_hostname and game.telnet_port -%}

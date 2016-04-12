@@ -9,7 +9,9 @@ values = {
     'game_status': 'pre-alpha',
     'game_website': 'http://blah.com',
     'listing_contact': 'blah@blah.com',
-    'overview_text': ("""
+    'short_description': 'This is a game with the stuff and other things of '
+                         'that nature woo.',
+    'long_description': ("""
 Hello, there. You silly person.
 
 Markdown is cool. Isn't this [neat](http://evennia.com)?

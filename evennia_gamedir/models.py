@@ -9,7 +9,8 @@ class GameListing(ndb.Model):
     game_status = ndb.StringProperty(required=True)
     game_website = ndb.StringProperty()
     listing_contact = ndb.StringProperty(required=True)
-    overview_text = ndb.TextProperty()
+    short_description = ndb.StringProperty()
+    long_description = ndb.TextProperty()
 
     # How to play
     telnet_hostname = ndb.StringProperty()

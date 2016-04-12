@@ -12,7 +12,9 @@
   <table class="table game-detail-table">
     <tr>
       <th>Name</th>
-      <td>{{ game.game_name }}</td>
+      <td>
+        {{ game.game_name }}
+      </td>
     </tr>
     <tr>
       <th>Status</th>
@@ -51,11 +53,11 @@
   </div>
 </div>
 
-{% if game.overview_text %}
+{% if game.long_description %}
 <div class="row game-overview-row">
   <div class="col-sm-1"></div>
   <div class="col-sm-10 game-overview-text">
-    {{ game.overview_text|safe }}
+    {{ game.long_description|safe }}
   </div>
   <div class="col-sm-1"></div>
 </div>

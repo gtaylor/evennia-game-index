@@ -5,8 +5,8 @@ from slugify import slugify
 from flask_restful import Resource, reqparse, abort
 
 from evennia_gamedir import models
-from evennia_gamedir.api_resources.validators import markdown_str
-
+from evennia_gamedir.api_resources.validators import markdown_str, \
+    game_short_description
 
 post_parser = reqparse.RequestParser()
 post_parser.add_argument(
@@ -23,7 +23,11 @@ post_parser.add_argument(
     'listing_contact', dest='listing_contact', location='form', required=True,
 )
 post_parser.add_argument(
-    'overview_text', dest='overview_text', location='form', required=False,
+    'short_description', dest='short_description', location='form',
+    required=False, type=game_short_description,
+)
+post_parser.add_argument(
+    'long_description', dest='long_description', location='form', required=False,
     type=markdown_str,
 )
 
