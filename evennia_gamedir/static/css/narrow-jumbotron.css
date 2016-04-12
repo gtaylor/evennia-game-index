@@ -24,6 +24,10 @@ body {
   line-height: 3rem;
 }
 
+.header a:hover {
+  text-decoration: none;
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 1.5rem;
