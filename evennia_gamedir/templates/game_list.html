@@ -59,8 +59,8 @@
       {% endif %}
       <td>
         {% if game.short_description %}
-        <span data-toggle="tooltip" data-placement="top"
-              title="{{ game.short_description }}">
+        <span {% if game.short_description|length > 60 %}
+          data-toggle="tooltip" data-placement="top" title="{{ game.short_description }}"{% endif %}>
           {{ game.short_description|truncate(60) }}
         </span>
         {% else %}
