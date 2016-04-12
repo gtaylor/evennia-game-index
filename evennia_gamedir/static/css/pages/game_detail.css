@@ -1,7 +1,20 @@
+div.game-table-row {
+    margin-bottom: 1em;
+}
+
 table.game-detail-table {
     border-color: green;
 }
 
 table.game-detail-table tr:first-child * {
     border-top: none;
+}
+
+div.game-overview-row {
+    margin-bottom:0.3em;
+}
+
+.game-overview-text {
+    border-top: 0.05rem solid #e5e5e5;
+    padding-top:1em;
 }

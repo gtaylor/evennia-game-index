@@ -5,6 +5,7 @@ from slugify import slugify
 from flask_restful import Resource, reqparse, abort
 
 from evennia_gamedir import models
+from evennia_gamedir.api_resources.validators import markdown_str
 
 
 post_parser = reqparse.RequestParser()
@@ -20,6 +21,10 @@ post_parser.add_argument(
 )
 post_parser.add_argument(
     'listing_contact', dest='listing_contact', location='form', required=True,
+)
+post_parser.add_argument(
+    'overview_text', dest='overview_text', location='form', required=False,
+    type=markdown_str,
 )
 
 
@@ -59,6 +64,7 @@ post_parser.add_argument(
 )
 
 
+# noinspection PyMethodMayBeStatic
 class GameListingCheckIn(Resource):
     """
     The Evennia Game Directory client hits this resource periodically to
@@ -80,6 +86,7 @@ class GameListingCheckIn(Resource):
         # If it exists, we'll end up with the existing list. If not,
         # it gets created.
         slug = slugify(args.game_name)
+        # noinspection PyArgumentList
         gl = models.GameListing.get_or_insert(slug, **args)
         # Regardless of what we do, time to update it.
         for key, val in args.items():

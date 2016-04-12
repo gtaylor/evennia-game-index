@@ -9,6 +9,11 @@ values = {
     'game_status': 'pre-alpha',
     'game_website': 'http://blah.com',
     'listing_contact': 'blah@blah.com',
+    'overview_text': ("""
+Hello, there. You silly person.
+
+Markdown is cool. Isn't this [neat](http://evennia.com)?
+        """),
 
     'telnet_hostname': 'blah.com',
     'telnet_port': '1234',

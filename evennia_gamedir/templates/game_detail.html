@@ -50,4 +50,14 @@
   </table>
   </div>
 </div>
+
+{% if game.overview_text %}
+<div class="row game-overview-row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10 game-overview-text">
+    {{ game.overview_text|safe }}
+  </div>
+  <div class="col-sm-1"></div>
+</div>
+{% endif %}
 {% endblock %}
