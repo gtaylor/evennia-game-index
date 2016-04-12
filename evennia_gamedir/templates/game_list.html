@@ -40,7 +40,12 @@
     <tr>
       <th>Game Name</th>
       <th>Blurb</th>
-      <th>Conn</th>
+      <th>
+        <span title="Number of Currently Connected Players"
+          data-toggle="tooltip" data-placement="top">
+            Conn
+        </span>
+      </th>
       <th>Play</th>
     </tr>
     {% for game in games %}
@@ -48,11 +53,10 @@
       {% if game.game_website and game.game_website != 'None' %}
       <td>
         <a href="{{ url_for('game-detail', game_slug=game.key.id()) }}">
-          {{ game.game_name }}
-          {% if game.game_status != 'launched' %}
+          {{ game.game_name }}</a>
+        {% if game.game_status != 'launched' %}
           <span class="unlaunched-game-state">{{ game.game_status }}</span>
-          {% endif %}
-        </a>
+        {% endif %}
       </td>
       {% else %}
       <td>{{ game.game_name }}</td>
