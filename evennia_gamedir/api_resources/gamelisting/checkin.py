@@ -24,7 +24,7 @@ post_parser.add_argument(
 )
 post_parser.add_argument(
     'short_description', dest='short_description', location='form',
-    required=False, type=game_short_description,
+    required=True, type=game_short_description,
 )
 post_parser.add_argument(
     'long_description', dest='long_description', location='form', required=False,
