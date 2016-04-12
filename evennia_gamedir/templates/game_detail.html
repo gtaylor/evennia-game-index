@@ -1,18 +1,53 @@
 {% extends "base.html" %}
 
+{% block extra_css %}
+<link href="/static/css/pages/game_detail.css" rel="stylesheet">
+{% endblock %}
+
 {% block title %}{{ game.game_name }}{% endblock %}
 
 {% block body %}
 <div class="row game-table-row">
-  <table class="table">
+  <div class="col-sm-6">
+  <table class="table game-detail-table">
     <tr>
-      <th>Game Name</th>
+      <th>Name</th>
       <td>{{ game.game_name }}</td>
     </tr>
     <tr>
-      <th>Game Status</th>
+      <th>Status</th>
       <td>{{ game.game_status }}</td>
     </tr>
+    <tr>
+      <th>Play</th>
+      <td>
+        {%- if game.telnet_hostname and game.telnet_port -%}
+          <a href="telnet://{{ game.telnet_hostname }}:{{ game.telnet_port }}">Telnet</a>
+        {%- endif -%}
+        {% if game.telnet_hostname and game.telnet_port and game.web_client_url %} or {% endif %}
+        {%- if game.web_client_url -%}<a href="{{ game.web_client_url }}">Web</a>{%- endif -%}
+      </td>
+    </tr>
   </table>
+  </div>
+
+  <div class="col-sm-6">
+  <table class="table game-detail-table">
+    <tr>
+      <th>Website</th>
+      <td>
+        {% if game.game_website %}
+        <a href="{{ game.game_website }}">{{ game.game_website }}</a>
+        {% else %}
+        <em>None</em>
+        {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <th>Connected Players</th>
+      <td>{{ game.connected_player_count }}</td>
+    </tr>
+  </table>
+  </div>
 </div>
 {% endblock %}

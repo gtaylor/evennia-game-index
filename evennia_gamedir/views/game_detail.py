@@ -5,7 +5,7 @@ from evennia_gamedir import models, app
 from evennia_gamedir.exceptions import NotFoundError
 
 
-@app.route('/game/<game_slug>')
+@app.route('/game/<game_slug>', endpoint='game-detail')
 def game_detail(game_slug):
     """
     Detail view for a game.

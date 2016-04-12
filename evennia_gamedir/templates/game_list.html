@@ -47,7 +47,7 @@
     <tr>
       {% if game.game_website and game.game_website != 'None' %}
       <td>
-        <a href="{{ game.game_website }}">
+        <a href="{{ url_for('game-detail', game_slug=game.key.id()) }}">
           {{ game.game_name }}
         </a>
       </td>
