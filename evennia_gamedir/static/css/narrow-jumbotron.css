@@ -24,7 +24,7 @@ body {
   line-height: 3rem;
 }
 
-.header a:hover {
+.header a:hover, a:active {
   text-decoration: none;
 }
 
