@@ -50,7 +50,6 @@
     </tr>
     {% for game in games %}
     <tr>
-      {% if game.game_website and game.game_website != 'None' %}
       <td>
         <a href="{{ url_for('game-detail', game_slug=game.key.id()) }}">
           {{ game.game_name }}</a>
@@ -58,9 +57,6 @@
           <span class="unlaunched-game-state">{{ game.game_status }}</span>
         {% endif %}
       </td>
-      {% else %}
-      <td>{{ game.game_name }}</td>
-      {% endif %}
       <td>
         {% if game.short_description %}
         <span {% if game.short_description|length > 60 %}
