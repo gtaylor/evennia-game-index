@@ -1,6 +1,6 @@
 from flask import render_template
 
-from evennia_gamedir import models, app
+from egi import models, app
 
 
 @app.route('/')

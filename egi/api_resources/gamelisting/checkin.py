@@ -4,8 +4,8 @@ Checkin resource that allows games to send us their deets.
 from slugify import slugify
 from flask_restful import Resource, reqparse, abort
 
-from evennia_gamedir import models
-from evennia_gamedir.api_resources.validators import markdown_str, \
+from egi import models
+from egi.api_resources.validators import markdown_str, \
     game_short_description
 
 post_parser = reqparse.RequestParser()
@@ -71,7 +71,7 @@ post_parser.add_argument(
 # noinspection PyMethodMayBeStatic
 class GameListingCheckIn(Resource):
     """
-    The Evennia Game Directory client hits this resource periodically to
+    The Evennia Game Index client hits this resource periodically to
     check in and let us know that its game is still alive. It sends along
     full details on the game each time it does.
     """

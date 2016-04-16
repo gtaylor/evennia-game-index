@@ -1,5 +1,5 @@
-from evennia_gamedir import app
-from evennia_gamedir.metrics.common import BaseMetric
+from egi import app
+from egi.metrics.common import BaseMetric
 
 
 def _setup_metrics():

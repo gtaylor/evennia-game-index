@@ -2,7 +2,7 @@
 We may need to break this up into multiple modules eventually, but toss any
 metrics that we need to track in here.
 """
-from evennia_gamedir.metrics.common import GaugeMetric
+from egi.metrics.common import GaugeMetric
 
 
 class EvenniaPlayerConnected(GaugeMetric):

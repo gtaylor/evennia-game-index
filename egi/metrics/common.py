@@ -3,7 +3,7 @@ import datetime
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
-from evennia_gamedir import app
+from egi import app
 
 
 def get_metrics_client():

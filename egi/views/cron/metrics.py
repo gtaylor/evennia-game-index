@@ -1,7 +1,7 @@
 from collections import Counter
 
-from evennia_gamedir import models, app
-from evennia_gamedir.metrics.metric_defines import EvenniaPlayerConnected, \
+from egi import models, app
+from egi.metrics.metric_defines import EvenniaPlayerConnected, \
     EvenniaPlayersAll, EDGGameListingsAll, EDGGameListingsFresh, GamePlayersAll, \
     GamePlayersConnected
 

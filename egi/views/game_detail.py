@@ -1,8 +1,8 @@
 from slugify import slugify
 from flask import render_template
 
-from evennia_gamedir import models, app
-from evennia_gamedir.exceptions import NotFoundError
+from egi import models, app
+from egi.exceptions import NotFoundError
 
 
 @app.route('/game/<game_slug>', endpoint='game-detail')

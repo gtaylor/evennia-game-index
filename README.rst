@@ -1,5 +1,5 @@
-Evennia Game Directory
-======================
+Evennia Game Index
+==================
 
 This repository contains a not-quite-complete directory listing for Evennia_
 games. The idea is to write an optional contrib for Evennia that will let
