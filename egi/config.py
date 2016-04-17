@@ -14,5 +14,5 @@ def populate_flask_config(app):
     else:
         app.config['IS_PRODUCTION'] = True
     app.config.update({
-        'GCP_PROJECT_ID': 'evennia-game-directory',
+        'GCP_PROJECT_ID': 'evennia-game-index',
     })
