@@ -38,8 +38,8 @@ class GameListing(ndb.Model):
         filtered_games = [g for g in games if g.is_fresh()]
         # Saves us from having to create an index, which is apparently slightly
         # more expensive (monetarily).
-        return sorted(filtered_games, key=lambda x: (
-            x.connected_player_count * -1, x.game_name))
+        return sorted(filtered_games, key=lambda game: (
+            (game.connected_player_count or 0) * -1, game.game_name))
 
     def is_fresh(self):
         cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=2)
