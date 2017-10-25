@@ -46,11 +46,20 @@ post_parser.add_argument(
 )
 
 post_parser.add_argument(
-    'connected_player_count', dest='connected_player_count', type=int,
+    'connected_account_count', dest='connected_player_count', type=int,
     location='form', required=False,
 )
 post_parser.add_argument(
-    'total_player_count', dest='total_player_count', type=int,
+    'total_account_count', dest='total_player_count', type=int,
+    location='form', required=False,
+)
+
+post_parser.add_argument(
+    'connected_player_count', dest='fallback_connected_player_count', type=int,
+    location='form', required=False,
+)
+post_parser.add_argument(
+    'total_player_count', dest='fallback_total_player_count', type=int,
     location='form', required=False,
 )
 
@@ -86,6 +95,14 @@ class GameListingCheckIn(Resource):
                 not (args.telnet_hostname and args.telnet_port):
             abort(400, message="You must specify at least one of "
                                "web_client_url or telnet_hostname+telnet_port.")
+
+        # handle Evennia 0.6 and prior EGI keys
+        if not args.connected_player_count \
+           and args.fallback_connected_player_count:
+            args.connected_player_count = args.fallback_connected_player_count
+        if not args.total_player_count \
+           and args.fallback_total_player_count:
+            args.total_player_count = args.fallback_total_player_count
 
         # If it exists, we'll end up with the existing list. If not,
         # it gets created.
