@@ -103,6 +103,8 @@ class GameListingCheckIn(Resource):
         if not args.total_account_count \
            and args.total_player_count:
             args.total_account_count = args.total_player_count
+        # now that we're done with the old args, remove them
+        del args.total_player_count, args.connect_player_count
 
         # If it exists, we'll end up with the existing list. If not,
         # it gets created.

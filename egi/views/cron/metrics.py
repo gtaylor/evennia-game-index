@@ -23,15 +23,15 @@ def report_all_game_iter_metrics():
             continue
         counters['fresh_game_listings'] += 1
 
-        if game.connected_player_count:
-            counters['connected_player_count'] += game.connected_player_count
-            GamePlayersConnected.write_gauge(game.connected_player_count, labels=game_labels)
-        if game.total_player_count:
-            counters['total_player_count'] += game.total_player_count
-            GamePlayersAll.write_gauge(game.total_player_count, labels=game_labels)
+        if game.connect_account_count:
+            counters['connected_account_count'] += game.connected_account_count
+            GamePlayersConnected.write_gauge(game.connected_account_count, labels=game_labels)
+        if game.total_account_count:
+            counters['total_account_count'] += game.total_account_count
+            GamePlayersAll.write_gauge(game.total_account_count, labels=game_labels)
 
-    EvenniaPlayerConnected.write_gauge(counters['connected_player_count'])
-    EvenniaPlayersAll.write_gauge(counters['total_player_count'])
+    EvenniaPlayerConnected.write_gauge(counters['connected_account_count'])
+    EvenniaPlayersAll.write_gauge(counters['total_account_count'])
     EDGGameListingsAll.write_gauge(counters['all_game_listings'])
     EDGGameListingsFresh.write_gauge(counters['fresh_game_listings'])
 

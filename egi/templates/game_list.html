@@ -64,7 +64,7 @@
           <em>None</em>
         {% endif %}
       </td>
-      <td>{{ game.connected_player_count }}</td>
+      <td>{{ game.connected_account_count }}</td>
       <td>
         {%- if game.telnet_hostname and game.telnet_port -%}
           <a href="telnet://{{ game.telnet_hostname }}:{{ game.telnet_port }}">Telnet</a>
