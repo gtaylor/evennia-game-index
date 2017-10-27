@@ -98,11 +98,20 @@ class GameListingCheckIn(Resource):
 
         # handle Evennia 0.6 and prior EGI keys
         if not args.connected_account_count \
-           and args.connect_player_count:
+           and args.connected_player_count:
             args.connected_account_count = args.connected_player_count
         if not args.total_account_count \
            and args.total_player_count:
             args.total_account_count = args.total_player_count
+
+        # Flask-restful's reqparser is acting a little odd.
+        # It reports True to hasattr, but throws an exception
+        # if we try del args.connected_player_count without it
+        # having been provided.
+        if args.connected_player_count is not None:
+            args.connected_player_count = None
+        if args.total_player_count is not None:
+            args.total_player_count = None
 
         # If it exists, we'll end up with the existing list. If not,
         # it gets created.
