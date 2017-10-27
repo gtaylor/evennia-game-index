@@ -18,8 +18,8 @@ class GameListing(ndb.Model):
     web_client_url = ndb.StringProperty()
 
     # Game stats
-    connected_player_count = ndb.IntegerProperty()
-    total_player_count = ndb.IntegerProperty()
+    connected_account_count = ndb.IntegerProperty()
+    total_account_count = ndb.IntegerProperty()
 
     # System info
     evennia_version = ndb.StringProperty(required=True)
