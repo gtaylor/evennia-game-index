@@ -108,10 +108,10 @@ class GameListingCheckIn(Resource):
         # It reports True to hasattr, but throws an exception
         # if we try del args.connected_player_count without it
         # having been provided.
-        if args.connected_player_count is not None:
-            args.connected_player_count = None
-        if args.total_player_count is not None:
-            args.total_player_count = None
+        if hasattr(args, 'connected_player_count'):
+            del args['connected_player_count']
+        if hasattr(args, 'total_player_count'):
+            del args['total_player_count']
 
         # If it exists, we'll end up with the existing list. If not,
         # it gets created.
