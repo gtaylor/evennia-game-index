@@ -23,12 +23,20 @@ def report_all_game_iter_metrics():
             continue
         counters['fresh_game_listings'] += 1
 
+        try:
+            count = game.connected_account_count or 0
+            total = game.total_account_count or 0
+        except AttributeError:
+            # this allows us to handle Evennia servers not upgraded beyond 0.6
+            count = game.connected_player_count or 0
+            total = game.total_player_count or 0
+
         if game.connect_account_count:
-            counters['connected_account_count'] += game.connected_account_count
-            GamePlayersConnected.write_gauge(game.connected_account_count, labels=game_labels)
+            counters['connected_account_count'] += count
+            GamePlayersConnected.write_gauge(count, labels=game_labels)
         if game.total_account_count:
-            counters['total_account_count'] += game.total_account_count
-            GamePlayersAll.write_gauge(game.total_account_count, labels=game_labels)
+            counters['total_account_count'] += total
+            GamePlayersAll.write_gauge(total, labels=game_labels)
 
     EvenniaPlayerConnected.write_gauge(counters['connected_account_count'])
     EvenniaPlayersAll.write_gauge(counters['total_account_count'])
