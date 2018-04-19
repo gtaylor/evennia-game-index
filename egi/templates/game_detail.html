@@ -24,8 +24,8 @@
       <th>Play</th>
       <td>
         {%- if game.telnet_hostname and game.telnet_port -%}
-	<a href="telnet://{{ game.telnet_hostname }}:{{ game.telnet_port }}">
-	    Telnet ({{ game.telnet_hostname }}:{{ game.telnet_port }})</a>
+	<a href="telnet://{{ game.telnet_hostname }}:{{ game.telnet_port }}"> Telnet</a> 
+	    ({{ game.telnet_hostname }}:{{ game.telnet_port }})
         {%- endif -%}
         {% if game.telnet_hostname and game.telnet_port and game.web_client_url %} or {% endif %}
         {%- if game.web_client_url -%}<a href="{{ game.web_client_url }}">Webclient</a>{%- endif -%}
