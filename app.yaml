@@ -3,8 +3,6 @@
 # https://developers.google.com/appengine/docs/python/config/appconfig
 # for details.
 
-application: evennia-game-index
-version: 1
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -40,4 +38,4 @@ libraries:
 - name: jinja2
   version: latest
 - name: ssl
-  version: "2.7"
+  version: 2.7.11
