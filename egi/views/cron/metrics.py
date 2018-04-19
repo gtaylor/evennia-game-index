@@ -31,10 +31,10 @@ def report_all_game_iter_metrics():
             count = game.connected_player_count or 0
             total = game.total_player_count or 0
 
-        if game.connect_account_count:
+        if count:
             counters['connected_account_count'] += count
             GamePlayersConnected.write_gauge(count, labels=game_labels)
-        if game.total_account_count:
+        if total:
             counters['total_account_count'] += total
             GamePlayersAll.write_gauge(total, labels=game_labels)
 
