@@ -104,6 +104,10 @@ class GameListingCheckIn(Resource):
            and args.total_player_count:
             args.total_account_count = args.total_player_count
 
+        # some older game versions send None here
+        args.connected_account_count = args.connected_account_count or 0
+        args.total_account_count = args.total_account_count or 0
+
         # Flask-restful's reqparser is acting a little odd.
         # It reports True to hasattr, but throws an exception
         # if we try del args.connected_player_count without it
