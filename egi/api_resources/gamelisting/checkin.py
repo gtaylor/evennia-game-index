@@ -37,7 +37,7 @@ post_parser.add_argument(
     location='form', required=False,
 )
 post_parser.add_argument(
-    'telnet_port', dest='telnet_port', type=int, location='form',
+    'telnet_port', dest='telnet_port', location='form',
     required=False,
 )
 post_parser.add_argument(
@@ -88,13 +88,13 @@ class GameListingCheckIn(Resource):
     def post(self):
         args = post_parser.parse_args()
 
-        # Let it be known that I am really unhappy that flask-restful doesn't
-        # seem to do multi-field validation. If I can't figure something better
-        # out, may be time to dust off WTForms.
-        if not args.web_client_url and \
-                not (args.telnet_hostname and args.telnet_port):
-            abort(400, message="You must specify at least one of "
-                               "web_client_url or telnet_hostname+telnet_port.")
+        if args.telnet_port:
+            # we want to allow the port being the empty string so only validate
+            # if it's actually set to something.
+            try:
+                int(args.telnet_port)
+            except ValueError:
+                abort(400, message="The given Telnet port is not a valid number")
 
         # handle Evennia 0.6 and prior EGI keys
         if not args.connected_account_count \

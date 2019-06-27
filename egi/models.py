@@ -38,8 +38,12 @@ class GameListing(ndb.Model):
         filtered_games = [g for g in games if g.is_fresh()]
         # Saves us from having to create an index, which is apparently slightly
         # more expensive (monetarily).
+        # we sort first so that games having a telnet/webclient link ends up on top,
+        # then by number of connected players and finally alphabetically by game name
         return sorted(filtered_games, key=lambda game: (
-            (game.connected_account_count or 0) * -1, game.game_name))
+            (0 if ((game.telnet_hostname and game.telnet_port) or game.web_client_url) else 1),
+            (-1 * (game.connected_account_count or 0)),
+            game.game_name))
 
     def is_fresh(self):
         cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=2)
