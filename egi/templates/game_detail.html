@@ -29,7 +29,9 @@
         {%- endif -%}
         {% if game.telnet_hostname and game.telnet_port and game.web_client_url %} or {% endif %}
         {%- if game.web_client_url -%}<a href="{{ game.web_client_url }}">Webclient</a>{%- endif -%}
-        {% if not game.web_client_url and not game.telnet_hostname %} Closed development {% endif %}
+        {% if not game.web_client_url and not game.telnet_hostname %}
+          <span class="closed-development">Closed development</span>
+        {% endif %}
       </td>
     </tr>
   </table>

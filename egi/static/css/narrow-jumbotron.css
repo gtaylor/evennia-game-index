@@ -83,3 +83,9 @@ span.unlaunched-game-state {
   margin-left: 4px;
   vertical-align: super;
 }
+
+span.closed-development {
+  color: #dd4b39;
+  font-size: 12px;
+  margin-left: 1em;
+}
