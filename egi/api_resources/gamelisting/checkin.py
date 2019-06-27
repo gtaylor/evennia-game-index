@@ -92,7 +92,7 @@ class GameListingCheckIn(Resource):
             # we want to allow the port being the empty string so only validate
             # if it's actually set to something.
             try:
-                int(args.telnet_port)
+                args.telnet_port = int(args.telnet_port)
             except ValueError:
                 abort(400, message="The given Telnet port is not a valid number")
 
