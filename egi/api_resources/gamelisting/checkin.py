@@ -95,6 +95,9 @@ class GameListingCheckIn(Resource):
                 args.telnet_port = int(args.telnet_port)
             except ValueError:
                 abort(400, message="The given Telnet port is not a valid number")
+        else:
+            # don't save '' but convert to None
+            args.telnet_port = None
 
         # handle Evennia 0.6 and prior EGI keys
         if not args.connected_account_count \
