@@ -16,7 +16,7 @@ def markdown_str(value):
     :return: The rendered HTML for the markdown.
     """
     retval = bleach.clean(
-        markdown.markdown(value, output_format='html5'),
+        markdown.markdown(value, output_format='html'),
         tags=ALLOWED_TAGS,
     )
     return retval

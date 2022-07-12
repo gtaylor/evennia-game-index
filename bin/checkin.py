@@ -37,10 +37,10 @@ print("Testing Evennia 0.7 format request")
 try:
     response = urllib2.urlopen(req)
 except urllib2.HTTPError as exc:
-    print exc.read()
+    print(exc.read())
 else:
     result = response.read()
-    print result
+    print(result)
 
 del values['connected_account_count']
 del values['total_account_count']
@@ -53,7 +53,7 @@ print("Testing Evennia 0.6 format request")
 try:
     response = urllib2.urlopen(req)
 except urllib2.HTTPError as exc:
-    print exc.read()
+    print(exc.read())
 else:
     result = response.read()
-    print result
+    print(result)
